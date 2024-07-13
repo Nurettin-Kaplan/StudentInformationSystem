@@ -26,7 +26,7 @@ int main(void){
 	
 	char choice;
 	
-	printf("\t\tWelcome To Student Information System\n\n");
+	printf("\n\t\tWelcome To Student Information System\n\n");
 	
 	do{
 		Menu(&choice);
@@ -50,7 +50,7 @@ int main(void){
 void Menu(char* choice){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
-	printf(	"1- Add student\n"
+	printf(	"\n1- Add student\n"
 			"2- Update student information\n"
 			"3- Delete student\n"
 			"4- View all students\n"
@@ -79,6 +79,7 @@ void Add(){
 	
 	FILE *file = fopen("students.txt", "a+");
 	if(file == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
@@ -98,12 +99,29 @@ void Delete(){
 }
 
 void ViewAll(){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 14);
+	
+	struct Student student;
+	
 	FILE *file = fopen("students.txt", "r");
 	if(file == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
-
+	while(!feof(file)){
+		fscanf(file, "%d %s %s %d %s", &student.num, &student.name, &student.surname, &student.age, &student.department);
+		printf("\n%d %s %s %d %s\n", student.num, student.name, student.surname, student.age, student.department);
+	}
+	fclose(file);
+	
+	SetConsoleTextAttribute(hConsole, 10);
+	printf("\n\t\tAll students listed.\n\n");
+	SetConsoleTextAttribute(hConsole, 14);
+	system("pause");
+	system("cls");
+	
 }
 
 void Search(){
