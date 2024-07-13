@@ -13,7 +13,6 @@ struct Student{
 	char surname[20];
 	int age;
 	char department[20];
-	float gpa;
 };
 
 void Menu();
@@ -67,15 +66,15 @@ void Add(){
 	
 	struct Student newStudent;
 	
-	printf("Enter the student number: ");
+	printf("Enter the student's number: ");
 	scanf("%d", &newStudent.num);
-	printf("Enter the student name: ");
+	printf("Enter the student's name: ");
 	scanf("%s", &newStudent.name);
-	printf("Enter the student surname: ");
+	printf("Enter the student's surname: ");
 	scanf("%s", &newStudent.surname);
-	printf("Enter the student age: ");
+	printf("Enter the student's age: ");
 	scanf("%d", &newStudent.age);
-	printf("Enter the student department: ");
+	printf("Enter the student's department: ");
 	scanf("%s", &newStudent.department);
 	
 	FILE *file = fopen("students.txt", "a+");
@@ -99,7 +98,12 @@ void Delete(){
 }
 
 void ViewAll(){
-	//
+	FILE *file = fopen("students.txt", "r");
+	if(file == NULL){
+		perror("There was an error opening the file.\n");
+		exit(1);
+	}
+
 }
 
 void Search(){

@@ -1,2 +1,5 @@
 1016 Nurettin Kaplan 22 Software_Engineering
-1014 Turgay Aslan 21 Computer_Engineering
+1209 Asli Erbasi 22 Computer_Engineering
+1014 Turgay Aslan 21 Mathematics_Teaching
+1708 John Wilson 20 Graphic_Design
+1419 Clara Brown 21 Graphic_Design
