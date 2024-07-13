@@ -78,7 +78,7 @@ void Add(){
 	printf("Enter the student department: ");
 	scanf("%s", &newStudent.department);
 	
-	FILE *file = fopen("student.txt", "a+");
+	FILE *file = fopen("students.txt", "a+");
 	if(file == NULL){
 		perror("There was an error opening the file.\n");
 		exit(1);
