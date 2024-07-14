@@ -92,6 +92,8 @@ void Add(){
 	
 	SetConsoleTextAttribute(hConsole, 10);
 	printf("\n\t\tThe student was successfully added.\n\n");
+	system("pause");
+	system("cls");
 }
 
 void Update(){
@@ -152,6 +154,7 @@ void Search(){
 		}
 	}
 	fclose(file);
+	
 	if(isFound == 1){
 		SetConsoleTextAttribute(hConsole, 15);
 		printf("\nFound student: %s %s %s %s %s\n\n", foundStudent.num, foundStudent.name, foundStudent.surname, foundStudent.age, foundStudent.department);
@@ -163,6 +166,7 @@ void Search(){
 	
 	SetConsoleTextAttribute(hConsole, 14);
 	system("pause");
+	system("cls");
 }
 
 void Accept(char* answer){
