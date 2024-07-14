@@ -21,26 +21,30 @@ void Update();
 void Delete();
 void ViewAll();
 void Search();
+void Accept();
 
 int main(void){
 	
-	char choice;
+	static char choice;
+	char approval;
 	
 	printf("\n\t\tWelcome To Student Information System\n\n");
 	
 	do{
 		Menu(&choice);
+		Accept(&approval);
 		system("cls");
-		switch(choice){
-			case '1': Add();			break;
-			case '2': Update();			break;
-			case '3': Delete();			break;
-			case '4': ViewAll();		break;
-			case '5': Search();			break;
-			case '6': continue;			break;
-			default: printf("You have entered an invalid option. Please try again.\n"); break;
+		if(approval == '1'){
+			switch(choice){
+				case '1': Add();			break;
+				case '2': Update();			break;
+				case '3': Delete();			break;
+				case '4': ViewAll();		break;
+				case '5': Search();			break;
+				case '6': continue;			break;
+				default: printf("You have entered an invalid option. Please try again.\n"); break;
+			}	
 		}
-		
 	}while(choice != '6');
 	
 	system("pause");
@@ -125,4 +129,17 @@ void ViewAll(){
 
 void Search(){
 	//
+}
+
+void Accept(char* approval){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("\nDo you want to continue with the operation?\n");
+	SetConsoleTextAttribute(hConsole, 10);
+	printf("Continue = 1 ");
+	SetConsoleTextAttribute(hConsole, 12);
+	printf("Cancel = 0\n");
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("Answer: ");
+	scanf("%s", approval);
 }
