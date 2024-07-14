@@ -99,7 +99,7 @@ void Update(){
 }
 
 void Delete(){
-	//
+	//struct Student foundStudent
 }
 
 void ViewAll(){
@@ -128,7 +128,41 @@ void ViewAll(){
 }
 
 void Search(){
-	//
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 14);
+	
+	struct Student foundStudent;
+	int isFound = 0;
+	char number[10];
+	
+	printf("\nEnter the number of the student you are searching for: ");
+	scanf("%s", &number);
+	
+	FILE *file = fopen("students.txt", "r");
+	if(file == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
+		perror("There was an error opening the file.\n");
+		exit(1);
+	}
+	while(!feof(file)){
+		fscanf(file, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		if(strcmp(number, foundStudent.num) == 0){
+			isFound = 1;
+			break;
+		}
+	}
+	fclose(file);
+	if(isFound == 1){
+		SetConsoleTextAttribute(hConsole, 15);
+		printf("\nFound student: %s %s %s %s %s\n\n", foundStudent.num, foundStudent.name, foundStudent.surname, foundStudent.age, foundStudent.department);
+	}
+	else{
+		SetConsoleTextAttribute(hConsole, 12);
+		printf("\nThe student being searched for could not be found.\n\n");	
+	}
+	
+	SetConsoleTextAttribute(hConsole, 14);
+	system("pause");
 }
 
 void Accept(char* answer){
