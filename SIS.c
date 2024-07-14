@@ -92,6 +92,7 @@ void Add(){
 	
 	SetConsoleTextAttribute(hConsole, 10);
 	printf("\n\t\tThe student was successfully added.\n\n");
+	SetConsoleTextAttribute(hConsole, 14);
 	system("pause");
 	system("cls");
 }
@@ -101,7 +102,48 @@ void Update(){
 }
 
 void Delete(){
-	//struct Student foundStudent
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 14);
+	
+	struct Student foundStudent;
+	int isFound = 0;
+	char number[10];
+	
+	printf("\nEnter the number of the student you want to delete: ");
+	scanf("%s", &number);
+	
+	FILE *file1 = fopen("students.txt", "r");
+	FILE *file2 = fopen("newStudents.txt", "w");
+	if(file1 == NULL || file2 == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
+		perror("There was an error opening the file.\n");
+		exit(1);
+	}
+	while(!feof(file1)){
+		fscanf(file1, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		if(strcmp(number, foundStudent.num) == 0){
+			isFound = 1;
+			continue;
+		}
+		fprintf(file2, "%s %s %s %s %s\n", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+	}
+	fclose(file1);
+	fclose(file2);
+	remove("students.txt");
+	rename("newStudents.txt", "students.txt");
+	
+	if(isFound == 1){
+		SetConsoleTextAttribute(hConsole, 10);
+		printf("\n\t\tDeletion process completed.\n\n");
+	}
+	else{
+		SetConsoleTextAttribute(hConsole, 12);
+		printf("\n\t\tThe student to be deleted could not be found.\n\n");	
+	}
+	
+	SetConsoleTextAttribute(hConsole, 14);
+	system("pause");
+	system("cls");
 }
 
 void ViewAll(){

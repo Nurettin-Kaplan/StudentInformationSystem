@@ -1,5 +1,4 @@
 1016 Nurettin Kaplan 22 Software_Engineering
 1209 Asli Erbasi 22 Computer_Engineering
 1014 John Smith 21 Graphic_Design
-1012 Clara Brown 19 Graphic_Design
-1903 Ricardo Grey 20 Mathematic_Teaching
+1015 Clara Brown 19 Graphic_Design
