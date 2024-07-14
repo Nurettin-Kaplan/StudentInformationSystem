@@ -8,11 +8,11 @@
 #define WHITE 15
 
 struct Student{
-	int num;
-	char name[20];
-	char surname[20];
-	int age;
-	char department[20];
+	char num[10];
+	char name[25];
+	char surname[25];
+	char age[5];
+	char department[30];
 };
 
 void Menu();
@@ -67,13 +67,13 @@ void Add(){
 	struct Student newStudent;
 	
 	printf("Enter the student's number: ");
-	scanf("%d", &newStudent.num);
+	scanf("%s", &newStudent.num);
 	printf("Enter the student's name: ");
 	scanf("%s", &newStudent.name);
 	printf("Enter the student's surname: ");
 	scanf("%s", &newStudent.surname);
 	printf("Enter the student's age: ");
-	scanf("%d", &newStudent.age);
+	scanf("%s", &newStudent.age);
 	printf("Enter the student's department: ");
 	scanf("%s", &newStudent.department);
 	
@@ -83,7 +83,7 @@ void Add(){
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
-	fprintf(file, "%d %s %s %d %s\n", newStudent.num, &newStudent.name, &newStudent.surname, newStudent.age, &newStudent.department);
+	fprintf(file, "%s %s %s %s %s\n", &newStudent.num, &newStudent.name, &newStudent.surname, &newStudent.age, &newStudent.department);
 	fclose(file);
 	
 	SetConsoleTextAttribute(hConsole, 10);
@@ -111,8 +111,8 @@ void ViewAll(){
 		exit(1);
 	}
 	while(!feof(file)){
-		fscanf(file, "%d %s %s %d %s", &student.num, &student.name, &student.surname, &student.age, &student.department);
-		printf("\n%d %s %s %d %s\n", student.num, student.name, student.surname, student.age, student.department);
+		fscanf(file, "%s %s %s %s %s", &student.num, &student.name, &student.surname, &student.age, &student.department);
+		printf("\n%s %s %s %s %s\n", student.num, student.name, student.surname, student.age, student.department);
 	}
 	fclose(file);
 	
@@ -121,7 +121,6 @@ void ViewAll(){
 	SetConsoleTextAttribute(hConsole, 14);
 	system("pause");
 	system("cls");
-	
 }
 
 void Search(){
