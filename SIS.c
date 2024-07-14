@@ -26,15 +26,15 @@ void Accept();
 int main(void){
 	
 	static char choice;
-	char approval;
+	char answer;
 	
 	printf("\n\t\tWelcome To Student Information System\n\n");
 	
 	do{
 		Menu(&choice);
-		Accept(&approval);
+		Accept(&answer);
 		system("cls");
-		if(approval == '1'){
+		if(answer == '1'){
 			switch(choice){
 				case '1': Add();			break;
 				case '2': Update();			break;
@@ -131,7 +131,7 @@ void Search(){
 	//
 }
 
-void Accept(char* approval){
+void Accept(char* answer){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("\nDo you want to continue with the operation?\n");
@@ -141,5 +141,5 @@ void Accept(char* approval){
 	printf("Cancel = 0\n");
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("Answer: ");
-	scanf("%s", approval);
+	scanf("%s", answer);
 }
