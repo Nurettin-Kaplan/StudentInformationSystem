@@ -22,6 +22,9 @@ void Delete();
 void ViewAll();
 void Search();
 void Accept();
+char SearchForUpdate();
+char DeleteForUpdate();
+char AddForUpdate();
 
 int main(void){
 	
@@ -98,7 +101,67 @@ void Add(){
 }
 
 void Update(){
-	//
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 14);
+	
+	struct Student foundStudent, newStudent;
+	int isFound = 0;
+	char number[10];
+	
+	printf("\nEnter the number of the student whose information you want to update:");
+	scanf("%s", &number);
+	
+	FILE *file1 = fopen("students.txt", "r");
+	FILE *file2 = fopen("newStudents.txt", "w");
+	if(file1 == NULL || file2 == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
+		perror("There was an error opening the file.\n");
+		exit(1);
+	}
+	while(!feof(file1)){
+		fscanf(file1, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		if(strcmp(number, foundStudent.num) == 0){
+			isFound = 1;
+			continue;
+		}
+		fprintf(file2, "%s %s %s %s %s\n", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+	}
+	fclose(file1);
+	fclose(file2);
+	remove("students.txt");
+	rename("newStudents.txt", "students.txt");
+	
+	if(isFound != 1){
+		SetConsoleTextAttribute(hConsole, 12);
+		printf("\n\t\tThe student to be updated could not be found.\n\n");	
+	}
+	else{
+		printf("Enter the student's number: ");
+		scanf("%s", &newStudent.num);
+		printf("Enter the student's name: ");
+		scanf("%s", &newStudent.name);
+		printf("Enter the student's surname: ");
+		scanf("%s", &newStudent.surname);
+		printf("Enter the student's age: ");
+		scanf("%s", &newStudent.age);
+		printf("Enter the student's department: ");
+		scanf("%s", &newStudent.department);
+		
+		FILE *file = fopen("students.txt", "a+");
+		if(file == NULL){
+			SetConsoleTextAttribute(hConsole, 12);
+			perror("There was an error opening the file.\n");
+			exit(1);
+		}
+		fprintf(file, "%s %s %s %s %s\n", &newStudent.num, &newStudent.name, &newStudent.surname, &newStudent.age, &newStudent.department);
+		fclose(file);
+		
+		SetConsoleTextAttribute(hConsole, 10);
+		printf("\n\t\tStudent information updated successfully.\n\n");
+	}
+	SetConsoleTextAttribute(hConsole, 14);
+	system("pause");
+	system("cls");
 }
 
 void Delete(){
