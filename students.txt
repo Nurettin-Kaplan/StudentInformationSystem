@@ -1,10 +1,7 @@
-1016 Nurettin Kaplan 22 Software_Engineering
+1016 Nurettin Kaplan 22 Softare_Engineering
 1209 Asli Erbasi 22 Computer_Engineering
-1014 John Smith 21 Graphic_Design
 1015 Clara Brown 19 Graphic_Design
 1330 Asrin Aslan 21 Computer_Engineering
-1330 Asrin Aslan 21 Computer_Engineering
-1023 Ramazan Bozkurt 20 Software_Engineering
-1023 Ramazan Bozkurt 20 Software_Engineering
-1023 Ramazan Bozkurt 20 Software_Engineering
 1240 Erkan_Yasin Yaman 20 Software_Engineering
+1000 Tuana Keser 18 Pharmacy
+1023 Ramazan Bozkurt 20 Computer_Enginnering

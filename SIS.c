@@ -15,28 +15,30 @@ struct Student{
 	char department[30];
 };
 
-void Menu();
+char Menu();
 void Add();
 void Update(int lines);
 void Delete(int lines);
 void ViewAll(int lines);
 void Search(int lines);
-void Accept();
+char Accept();
 int LineCount();
 
 int main(void){
 	
-	int lines;
+	static int lines;
 	static char choice;
-	char answer;
+	static char answer;
 	
 	printf("\n\t\tWelcome To Student Information System\n\n");
 	
 	do{
-		Menu(&choice);
-		Accept(&answer);
+		choice = Menu();
+		answer = Accept();
 		system("cls");
-		lines = LineCount();
+		if(choice == '2' || choice == '3' || choice == '4' || choice == '5'){
+			lines = LineCount();	
+		}
 		if(answer == '1'){
 			switch(choice){
 				case '1': Add();					break;
@@ -54,7 +56,8 @@ int main(void){
 	return 0;
 }
 
-void Menu(char* choice){
+char Menu(){
+	char choice;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
 	printf(	"\n1- Add student\n"
@@ -64,7 +67,9 @@ void Menu(char* choice){
 			"5- Search student by number\n"
 			"6- Exit the program\n"
 			"Select the operation you want to perform: ");
-	scanf("%s", choice);
+	scanf(" %c", &choice);
+
+	return choice;
 }
 
 void Add(){
@@ -275,9 +280,12 @@ void Search(int lines){
 	system("cls");
 }
 
-void Accept(char* answer){
+char Accept(){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
+	
+	char answer;
+	
 	printf("\nDo you want to continue with the operation?\n");
 	SetConsoleTextAttribute(hConsole, 10);
 	printf("Continue = 1 ");
@@ -285,7 +293,9 @@ void Accept(char* answer){
 	printf("Cancel = 0\n");
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("Answer: ");
-	scanf("%s", answer);
+	scanf(" %c", &answer);
+
+	return answer;
 }
 
 int LineCount(){
