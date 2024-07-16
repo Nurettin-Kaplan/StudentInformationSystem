@@ -39,7 +39,7 @@ int main(void){
 		system("cls");
 		if(answer == '1'){
 			if(choice == '2' || choice == '3' || choice == '4' || choice == '5'){
-			lines = LineCount();
+				lines = LineCount();
 			}
 			switch(choice){
 				case '1': Add();					break;
