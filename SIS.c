@@ -11,17 +11,18 @@ struct Student{
 	char num[10];
 	char name[25];
 	char surname[25];
-	char age[5];
-	char department[30];
+	char age[10];
+	char department[40];
+	char gpa[10];
 };
 
-char Menu();
+void Menu(char* choice);
 void Add();
 void Update(int lines);
 void Delete(int lines);
 void ViewAll(int lines);
 void Search(int lines);
-char Accept();
+void Accept(char* answer);
 int LineCount();
 
 int main(void){
@@ -33,13 +34,13 @@ int main(void){
 	printf("\n\t\tWelcome To Student Information System\n\n");
 	
 	do{
-		choice = Menu();
-		answer = Accept();
+		Menu(&choice);
+		Accept(&answer);
 		system("cls");
-		if(choice == '2' || choice == '3' || choice == '4' || choice == '5'){
-			lines = LineCount();	
-		}
 		if(answer == '1'){
+			if(choice == '2' || choice == '3' || choice == '4' || choice == '5'){
+			lines = LineCount();
+			}
 			switch(choice){
 				case '1': Add();					break;
 				case '2': Update(lines);			break;
@@ -56,8 +57,7 @@ int main(void){
 	return 0;
 }
 
-char Menu(){
-	char choice;
+void Menu(char *choice){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
 	printf(	"\n1- Add student\n"
@@ -67,9 +67,7 @@ char Menu(){
 			"5- Search student by number\n"
 			"6- Exit the program\n"
 			"Select the operation you want to perform: ");
-	scanf(" %c", &choice);
-
-	return choice;
+	scanf(" %s", choice);
 }
 
 void Add(){
@@ -88,6 +86,8 @@ void Add(){
 	scanf("%s", &newStudent.age);
 	printf("Enter the student's department: ");
 	scanf("%s", &newStudent.department);
+	printf("Enter the student's GPA: ");
+	scanf("%s", &newStudent.gpa);
 	
 	FILE *file = fopen("students.txt", "a+");
 	if(file == NULL){
@@ -95,7 +95,7 @@ void Add(){
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
-	fprintf(file, "%s %s %s %s %s\n", &newStudent.num, &newStudent.name, &newStudent.surname, &newStudent.age, &newStudent.department);
+	fprintf(file, "%s %s %s %s %s %s\n", &newStudent.num, &newStudent.name, &newStudent.surname, &newStudent.age, &newStudent.department, &newStudent.gpa);
 	fclose(file);
 	
 	SetConsoleTextAttribute(hConsole, 10);
@@ -124,12 +124,12 @@ void Update(int lines){
 		exit(1);
 	}
 	for(i = 1; i < lines; i++){
-		fscanf(file1, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		fscanf(file1, "%s %s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department, &foundStudent.gpa);
 		if(strcmp(number, foundStudent.num) == 0){
 			isFound = 1;
 			continue;
 		}
-		fprintf(file2, "%s %s %s %s %s\n", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		fprintf(file2, "%s %s %s %s %s %s\n", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department, &foundStudent.gpa);
 	}
 	fclose(file1);
 	fclose(file2);
@@ -151,6 +151,8 @@ void Update(int lines){
 		scanf("%s", &newStudent.age);
 		printf("Enter the student's department: ");
 		scanf("%s", &newStudent.department);
+		printf("Enter the student's GPA: ");
+		scanf("%s", &newStudent.gpa);
 		
 		FILE *file = fopen("students.txt", "a+");
 		if(file == NULL){
@@ -158,7 +160,7 @@ void Update(int lines){
 			perror("There was an error opening the file.\n");
 			exit(1);
 		}
-		fprintf(file, "%s %s %s %s %s\n", &newStudent.num, &newStudent.name, &newStudent.surname, &newStudent.age, &newStudent.department);
+		fprintf(file, "%s %s %s %s %s %s\n", &newStudent.num, &newStudent.name, &newStudent.surname, &newStudent.age, &newStudent.department, &newStudent.gpa);
 		fclose(file);
 		
 		SetConsoleTextAttribute(hConsole, 10);
@@ -188,12 +190,12 @@ void Delete(int lines){
 		exit(1);
 	}
 	for(i = 1; i < lines; i++){
-		fscanf(file1, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		fscanf(file1, "%s %s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department, &foundStudent.gpa);
 		if(strcmp(number, foundStudent.num) == 0){
 			isFound = 1;
 			continue;
 		}
-		fprintf(file2, "%s %s %s %s %s\n", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		fprintf(file2, "%s %s %s %s %s %s\n", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department, &foundStudent.gpa);
 	}
 	fclose(file1);
 	fclose(file2);
@@ -228,8 +230,8 @@ void ViewAll(int lines){
 		exit(1);
 	}
 	for(i = 1; i < lines; i++){
-		fscanf(file, "%s %s %s %s %s", &student.num, &student.name, &student.surname, &student.age, &student.department);
-		printf("\n%s %s %s %s %s\n", student.num, student.name, student.surname, student.age, student.department);
+		fscanf(file, "%s %s %s %s %s %s", &student.num, &student.name, &student.surname, &student.age, &student.department, &student.gpa);
+		printf("\n%s %s %s %s %s %s\n", student.num, student.name, student.surname, student.age, student.department, student.gpa);
 	}
 	fclose(file);
 	
@@ -258,7 +260,7 @@ void Search(int lines){
 		exit(1);
 	}
 	for(i = 1; i < lines; i++){
-		fscanf(file, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
+		fscanf(file, "%s %s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department, &foundStudent.gpa);
 		if(strcmp(number, foundStudent.num) == 0){
 			isFound = 1;
 			break;
@@ -268,7 +270,7 @@ void Search(int lines){
 	
 	if(isFound == 1){
 		SetConsoleTextAttribute(hConsole, 15);
-		printf("\nFound student: %s %s %s %s %s\n\n", foundStudent.num, foundStudent.name, foundStudent.surname, foundStudent.age, foundStudent.department);
+		printf("\nFound student: %s %s %s %s %s %s\n\n", foundStudent.num, foundStudent.name, foundStudent.surname, foundStudent.age, foundStudent.department, foundStudent.gpa);
 	}
 	else{
 		SetConsoleTextAttribute(hConsole, 12);
@@ -280,11 +282,9 @@ void Search(int lines){
 	system("cls");
 }
 
-char Accept(){
+void Accept(char *answer){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
-	
-	char answer;
 	
 	printf("\nDo you want to continue with the operation?\n");
 	SetConsoleTextAttribute(hConsole, 10);
@@ -293,9 +293,7 @@ char Accept(){
 	printf("Cancel = 0\n");
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("Answer: ");
-	scanf(" %c", &answer);
-
-	return answer;
+	scanf(" %s", answer);
 }
 
 int LineCount(){
