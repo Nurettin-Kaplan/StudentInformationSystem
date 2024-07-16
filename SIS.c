@@ -17,17 +17,16 @@ struct Student{
 
 void Menu();
 void Add();
-void Update();
-void Delete();
-void ViewAll();
-void Search();
+void Update(int lines);
+void Delete(int lines);
+void ViewAll(int lines);
+void Search(int lines);
 void Accept();
-char SearchForUpdate();
-char DeleteForUpdate();
-char AddForUpdate();
+int LineCount();
 
 int main(void){
 	
+	int lines;
 	static char choice;
 	char answer;
 	
@@ -37,14 +36,15 @@ int main(void){
 		Menu(&choice);
 		Accept(&answer);
 		system("cls");
+		lines = LineCount();
 		if(answer == '1'){
 			switch(choice){
-				case '1': Add();			break;
-				case '2': Update();			break;
-				case '3': Delete();			break;
-				case '4': ViewAll();		break;
-				case '5': Search();			break;
-				case '6': continue;			break;
+				case '1': Add();					break;
+				case '2': Update(lines);			break;
+				case '3': Delete(lines);			break;
+				case '4': ViewAll(lines);			break;
+				case '5': Search(lines);			break;
+				case '6': continue;					break;
 				default: printf("You have entered an invalid option. Please try again.\n"); break;
 			}	
 		}
@@ -73,7 +73,7 @@ void Add(){
 	
 	struct Student newStudent;
 	
-	printf("Enter the student's number: ");
+	printf("\nEnter the student's number: ");
 	scanf("%s", &newStudent.num);
 	printf("Enter the student's name: ");
 	scanf("%s", &newStudent.name);
@@ -100,15 +100,15 @@ void Add(){
 	system("cls");
 }
 
-void Update(){
+void Update(int lines){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
 	
 	struct Student foundStudent, newStudent;
-	int isFound = 0;
+	int i, isFound = 0;
 	char number[10];
 	
-	printf("\nEnter the number of the student whose information you want to update:");
+	printf("\nEnter the number of the student whose information you want to update: ");
 	scanf("%s", &number);
 	
 	FILE *file1 = fopen("students.txt", "r");
@@ -118,7 +118,7 @@ void Update(){
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
-	while(!feof(file1)){
+	for(i = 1; i < lines; i++){
 		fscanf(file1, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
 		if(strcmp(number, foundStudent.num) == 0){
 			isFound = 1;
@@ -136,7 +136,7 @@ void Update(){
 		printf("\n\t\tThe student to be updated could not be found.\n\n");	
 	}
 	else{
-		printf("Enter the student's number: ");
+		printf("\nEnter the student's number: ");
 		scanf("%s", &newStudent.num);
 		printf("Enter the student's name: ");
 		scanf("%s", &newStudent.name);
@@ -164,12 +164,12 @@ void Update(){
 	system("cls");
 }
 
-void Delete(){
+void Delete(int lines){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
 	
 	struct Student foundStudent;
-	int isFound = 0;
+	int i, isFound = 0;
 	char number[10];
 	
 	printf("\nEnter the number of the student you want to delete: ");
@@ -182,7 +182,7 @@ void Delete(){
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
-	while(!feof(file1)){
+	for(i = 1; i < lines; i++){
 		fscanf(file1, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
 		if(strcmp(number, foundStudent.num) == 0){
 			isFound = 1;
@@ -209,10 +209,11 @@ void Delete(){
 	system("cls");
 }
 
-void ViewAll(){
+void ViewAll(int lines){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
 	
+	int i;
 	struct Student student;
 	
 	FILE *file = fopen("students.txt", "r");
@@ -221,7 +222,7 @@ void ViewAll(){
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
-	while(!feof(file)){
+	for(i = 1; i < lines; i++){
 		fscanf(file, "%s %s %s %s %s", &student.num, &student.name, &student.surname, &student.age, &student.department);
 		printf("\n%s %s %s %s %s\n", student.num, student.name, student.surname, student.age, student.department);
 	}
@@ -234,12 +235,12 @@ void ViewAll(){
 	system("cls");
 }
 
-void Search(){
+void Search(int lines){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 14);
 	
 	struct Student foundStudent;
-	int isFound = 0;
+	int i, isFound = 0;
 	char number[10];
 	
 	printf("\nEnter the number of the student you are searching for: ");
@@ -251,7 +252,7 @@ void Search(){
 		perror("There was an error opening the file.\n");
 		exit(1);
 	}
-	while(!feof(file)){
+	for(i = 1; i < lines; i++){
 		fscanf(file, "%s %s %s %s %s", &foundStudent.num, &foundStudent.name, &foundStudent.surname, &foundStudent.age, &foundStudent.department);
 		if(strcmp(number, foundStudent.num) == 0){
 			isFound = 1;
@@ -285,4 +286,29 @@ void Accept(char* answer){
 	SetConsoleTextAttribute(hConsole, 14);
 	printf("Answer: ");
 	scanf("%s", answer);
+}
+
+int LineCount(){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	
+	int lineCount = 0;
+	char ch;
+	
+	FILE *file = fopen("students.txt", "r");
+	if(file == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
+		perror("There was an error opening the file.\n");
+		exit(1);
+	}
+	while((ch = fgetc(file)) != EOF){
+		if(ch == '\n'){
+			lineCount++;
+		}
+	}
+	if(ch != '\n' && lineCount > 0){
+		lineCount++;
+	}
+	fclose(file);
+	
+	return lineCount;
 }
