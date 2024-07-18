@@ -49,7 +49,7 @@ int main(void){
 				case '5': Search(lines);			break;
 				case '6': continue;					break;
 				default: printf("You have entered an invalid option. Please try again.\n"); break;
-			}	
+			}
 		}
 	}while(choice != '6');
 	
