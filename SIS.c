@@ -51,7 +51,7 @@ int main(void){
 				default: printf("You have entered an invalid option. Please try again.\n"); break;
 			}
 		}
-	}while(choice != '6');
+	}while(choice != '6' || answer != '1');
 	
 	system("pause");
 	return 0;
