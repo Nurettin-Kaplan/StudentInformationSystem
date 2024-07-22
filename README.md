@@ -21,23 +21,17 @@ The **Student Information System** is a simple console-based application written
 1. **Download the repository:** Clone the repository to your local machine using
    ```bash
    git clone https://github.com/Nurettin-Kaplan/StudentInformationSystem.git
-<<<<<<< HEAD
    ```
 2. **Compile the code:** Use a C compiler to compile the `main.c` file.
    ```sh
    gcc -o SIS SIS.c
-=======
->>>>>>> dc07685a0aa4f39451f9761df9f890344a1742a0
    ```
 3. **Compile the code:** Use a C compiler to compile the `SIS.c` file.
    ```sh
-<<<<<<< HEAD
-=======
    gcc -o SIS SIS.c
    ```
 4. **Run the application:** Execute the compiled file.
    ```sh
->>>>>>> dc07685a0aa4f39451f9761df9f890344a1742a0
    ./SIS
    ```
 
@@ -97,11 +91,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ---
 
-<<<<<<< HEAD
-#### Author
-=======
 #### Contributors
->>>>>>> dc07685a0aa4f39451f9761df9f890344a1742a0
 [Nurettin Kaplan](https://github.com/Nurettin-Kaplan) - Project owner and developer.
 
 ---
