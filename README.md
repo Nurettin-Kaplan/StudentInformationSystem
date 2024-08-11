@@ -7,6 +7,20 @@ The **Student Information System** is a simple console-based application written
 
 ---
 
+#### Changes Made
+
+#### Platform Independence
+
+In this project, Windows-specific dependencies have been removed, and the code has been made to work across all platforms.
+
+---
+
+#### Changes Made:
+
+- Removed Windows-specific libraries and code.
+
+---
+
 #### Features
 1. **Add Student:** Add new student records.
 2. **Update Student Information:** Update existing student records.
